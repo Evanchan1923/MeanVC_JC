@@ -8,6 +8,8 @@
 
 </div>
 
+> 🎉 **MeanVC2 has been released!** Check out our latest work at [ASLP-lab/MeanVC2](https://github.com/ASLP-lab/MeanVC2).
+
 **MeanVC** is a lightweight and streaming zero-shot voice conversion system that enables real-time timbre transfer from any source speaker to any target speaker while preserving linguistic content. The system introduces a diffusion transformer with chunk-wise autoregressive denoising strategy and mean flows for efficient single-step inference.
 
 ![img](figs/model.png)
