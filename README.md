@@ -49,9 +49,7 @@ Run the provided script to automatically download all necessary pre-trained mode
 python download_ckpt.py
 ```
 
-This will download the main VC model, vocoder, and asr model into the `src/ckpt/` directories.
-
-This will download the main VC model, vocoder, and asr model into the `src/ckpt/` directories.
+This will download the main VC model, vocoder, and asr model into `/srv/scratch/speechdata/SAPC_Team/`.
 
 The speaker verification model (`wavlm_large_finetune.pth`) must be downloaded manually from Google Drive.  Download the file from [this link](https://drive.google.com/file/d/1-aE1NfzpRCLxA4GUxX9ITI3F9LlbtEGP/view).  Place the downloaded `wavlm_large_finetune.pth` file into the `src/runtime/speaker_verification/ckpt/` directory.
 

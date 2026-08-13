@@ -12,6 +12,8 @@ from librosa.filters import mel as librosa_mel_fn
 from speaker_verification.verification import init_model as init_sv_model
 import json
 
+CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team"
+
 
 def _amp_to_db(x, min_level_db):
     min_level = np.exp(min_level_db / 20 * np.log(10))
@@ -98,9 +100,9 @@ class VCRunner():
         
         self.mel_extract = MelSpectrogramFeatures(sample_rate=16000, n_fft=1024, win_size=640, hop_length=160, n_mels=80, fmin=0, fmax=8000, center=True)
         
-        self.asr = torch.jit.load('src/ckpt/fastu2++.pt')
-        self.vc = torch.jit.load("src/ckpt/meanvc_200ms.pt")
-        self.vocoder = torch.jit.load('src/ckpt/vocos.pt')
+        self.asr = torch.jit.load(f"{CKPT_DIR}/fastu2++.pt")
+        self.vc = torch.jit.load(f"{CKPT_DIR}/meanvc_200ms.pt")
+        self.vocoder = torch.jit.load(f"{CKPT_DIR}/vocos.pt")
         
 
         decoding_chunk_size = 5

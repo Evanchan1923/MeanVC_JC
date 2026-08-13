@@ -1,8 +1,9 @@
 export PYTHONPATH=$PYTHONPATH:$PWD
 
 
-model_path=src/ckpt/model_200ms.safetensors
-vocoder_path=src/ckpt/vocos.pt
+ckpt_dir=/srv/scratch/speechdata/SAPC_Team
+model_path=${ckpt_dir}/model_200ms.safetensors
+vocoder_path=${ckpt_dir}/vocos.pt
 source_path=path/to/source_dir
 reference_path=path/to/reference.wav
 output_dir=src/outputs

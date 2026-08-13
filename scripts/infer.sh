@@ -1,8 +1,9 @@
 export PYTHONPATH=$PYTHONPATH:$PWD
 
 
-model_path=src/ckpt/model_200ms.safetensors
-vocoder_path=src/ckpt/vocos.pt
+ckpt_dir=/srv/scratch/speechdata/SAPC_Team
+model_path=${ckpt_dir}/model_200ms.safetensors
+vocoder_path=${ckpt_dir}/vocos.pt
 bn_path=path/to/bn/
 speaker_emb_path=path/to/speaker_emb.npy
 prompt_path=path/to/prompt_mel.npy

@@ -1,7 +1,10 @@
 from huggingface_hub import snapshot_download
 from pathlib import Path
 
-def download_ckpt(dest_dir: str = "src/ckpt") -> None:
+DEFAULT_CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team"
+
+
+def download_ckpt(dest_dir: str = DEFAULT_CKPT_DIR) -> None:
     Path(dest_dir).mkdir(parents=True, exist_ok=True)
     snapshot_download(
         repo_id="ASLP-lab/MeanVC",

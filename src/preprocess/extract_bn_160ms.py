@@ -38,7 +38,7 @@ def extract_fbanks(
     return fbanks
 
 
-asr = torch.jit.load('src/runtime/ckpt/fastu2++.pt').to(device)
+asr = torch.jit.load('/srv/scratch/speechdata/SAPC_Team/fastu2++.pt').to(device)
 
 def extract_bn(wav_path):
     
