@@ -9,5 +9,7 @@
 - Moved `meanVC_ft_v1.pbs` to the repository root.
 - Updated speaker-verification checkpoint defaults to use the shared `meanVC_checkpoint` directory.
 - Removed obsolete `example.pbs` and `example.yaml`.
+- Documented the recommendation to keep shared multi-speaker MeanVC fine-tuning as the default and use per-speaker runs selectively.
+- Added filtered speaker research CSV for speakers with more than 200 utterances, sorted by utterance count descending.
 
 ## 2026-06-30
