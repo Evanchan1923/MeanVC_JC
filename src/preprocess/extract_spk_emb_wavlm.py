@@ -55,7 +55,7 @@ device = args.device
 num_thread = args.num_thread
 print(args)
 
-model = init_model('wavlm_large', 'src/preprocess/ckpts/wavlm_large_finetune.pth')
+model = init_model('wavlm_large', '/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/wavlm_large_finetune.pth')
 model.eval()
 model.to(device) 
 print(f"model loaded to {device}")

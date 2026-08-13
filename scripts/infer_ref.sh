@@ -1,7 +1,7 @@
 export PYTHONPATH=$PYTHONPATH:$PWD
 
 
-ckpt_dir=/srv/scratch/speechdata/SAPC_Team
+ckpt_dir=/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint
 model_path=${ckpt_dir}/model_200ms.safetensors
 vocoder_path=${ckpt_dir}/vocos.pt
 source_path=path/to/source_dir

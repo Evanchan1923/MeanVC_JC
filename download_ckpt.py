@@ -1,7 +1,7 @@
 from huggingface_hub import snapshot_download
 from pathlib import Path
 
-DEFAULT_CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team"
+DEFAULT_CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint"
 
 
 def download_ckpt(dest_dir: str = DEFAULT_CKPT_DIR) -> None:

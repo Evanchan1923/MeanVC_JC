@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     wavs = glob.glob(os.path.join(wav_dir, '*.wav'))
 
-    model = init_model('wavlm_large', '/ckpt/wavlm_large_finetune.pth')
+    model = init_model('wavlm_large', '/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/wavlm_large_finetune.pth')
     model.eval()
     model.to(device)
 

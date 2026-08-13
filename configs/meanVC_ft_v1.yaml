@@ -1,0 +1,89 @@
+## =========================================================
+## MeanVC SAPC Severe fine-tuning config v1
+##   Run locally: python src/train/finetune_meanvc_hf.py --config configs/meanVC_ft_v1.yaml
+##   Run on PBS:  qsub meanVC_ft_v1.pbs
+## =========================================================
+
+user_settings:
+  repo_root: "."
+  hf_dataset_path: "/srv/scratch/speechdata/speech-corpora/dysarthric/SAPC_HF/SAPC_Severe"
+  train_split: "train"
+  devices: 1
+  num_workers: 4
+  run_root: "/srv/scratch/speechdata/SAPC_Team/meanvc_runs"
+  checkpoint_root: "/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint"
+  speaker_verification_ckpt_path: "/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/wavlm_large_finetune.pth"
+  hf_cache_root: "/srv/scratch/z5327748/cache"
+  name: "meanVC_ft_v1"
+
+pipeline:
+  stages: [prepare, train]
+
+run:
+  run_root: "${user_settings.run_root}"
+  name: "${user_settings.name}"
+  output_subdir: "artifacts"
+
+prepare:
+  audio_column: "audio"
+  fallback_audio_path_column: "audio_filepath"
+  id_column: "id"
+  speaker_column: "speaker"
+  duration_column: "duration"
+  output_subdir: "prepared_train"
+  sample_rate: 16000
+  bn_frame_mode: "200ms"
+  feature_device: "cuda:0"
+  seed: 42
+  force: false
+  limit: null
+  min_duration: 0.05
+  max_duration: null
+  max_errors: 100
+  max_prompt_mels_per_utt: 8
+  asr_ckpt_path: "${user_settings.checkpoint_root}/fastu2++.pt"
+  speaker_embedding_model: "wavlm_large"
+  speaker_verification_ckpt_path: "${user_settings.speaker_verification_ckpt_path}"
+
+train:
+  script: "src/train/train.py"
+  accelerate_config: "configs/accelerate_meanvc_gpu.yaml"
+  gpu_ids: null
+  main_process_port: null
+  args:
+    model_config: "src/config/config_200ms.json"
+    pretrained_ckpt_path: "${user_settings.checkpoint_root}/model_200ms.safetensors"
+    batch_size: 8
+    max_len: 1000
+    flow_ratio: 0.50
+    cfg_ratio: 0.1
+    cfg_scale: 2.0
+    p: 0.5
+    num_workers: "${user_settings.num_workers}"
+    feature_list: "bn mel xvector"
+    additional_feature_list: "inputs_length prompt"
+    feature_pad_values: "0. -1.0 0."
+    steps: 2
+    cfg_strength: 2.0
+    chunk_size: 20
+    result_dir: "results"
+    save_per_updates: 1000
+    last_per_steps: 1000
+    run_validation: 0
+    reset_lr: 0
+    learning_rate: 5e-5
+    num_warmup_updates: 500
+    epochs: 20
+    resumable_with_seed: 666
+    grad_accumulation_steps: 1
+    grad_ckpt: 0
+    exp_name: "${user_settings.name}"
+
+environment:
+  env:
+    PYTHONUNBUFFERED: "1"
+    HF_HOME: "${user_settings.hf_cache_root}"
+    TRANSFORMERS_CACHE: "${user_settings.hf_cache_root}/transformers"
+    HF_DATASETS_CACHE: "${user_settings.hf_cache_root}/datasets"
+    OMP_NUM_THREADS: "1"
+    MKL_NUM_THREADS: "1"

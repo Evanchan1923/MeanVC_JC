@@ -247,8 +247,8 @@ if __name__ == "__main__":
 
     parser.add_argument('--model-config', type=str, default=None)
     parser.add_argument('--ckpt-path', type=str, default=None)
-    parser.add_argument('--asr-ckpt-path', type=str, default='/srv/scratch/speechdata/SAPC_Team/fastu2++.pt')
-    parser.add_argument('--sv-ckpt-path', type=str, default='src/runtime/speaker_verification/ckpt/wavlm_large_finetune.pth')
+    parser.add_argument('--asr-ckpt-path', type=str, default='/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/fastu2++.pt')
+    parser.add_argument('--sv-ckpt-path', type=str, default='/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/wavlm_large_finetune.pth')
     parser.add_argument('--vocoder-ckpt-path', type=str, default=None)
     parser.add_argument('--output-dir', type=str, default=None)
     parser.add_argument('--source-path', type=str, default=None, help='Source audio file or directory')

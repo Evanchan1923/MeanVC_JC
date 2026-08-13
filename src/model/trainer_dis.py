@@ -189,7 +189,7 @@ class Trainer:
         self.scheduler = ConstantLR(self.optimizer, factor=1, total_iters=total_steps)
 
     def get_dataloader(self):
-        dd = DiffusionDataset(*DiffusionDataset.init_data(self.args.dataset_path), \
+        dd = DiffusionDataset(DiffusionDataset.init_data(self.args.dataset_path), \
                                 feature_list=self.args.feature_list, \
                                 additional_feature_list=self.args.additional_feature_list, \
                                 feature_pad_values=self.args.feature_pad_values, \
@@ -291,7 +291,7 @@ class Trainer:
         prompt_dir = "/val/mels_10ms"
         
         # smos
-        sv_model = init_model('wavlm_large', '/test/smos/ckpt/wavlm_large_finetune.pth')
+        sv_model = init_model('wavlm_large', '/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint/wavlm_large_finetune.pth')
         sv_model.eval()
         sv_model.to(self.model.device)
         ssmi_dict = {}
@@ -568,10 +568,11 @@ class Trainer:
 
                 if global_step % (self.save_per_updates * self.grad_accumulation_steps) == 0:
                     self.save_checkpoint(global_step)
-                    try:
-                        self.validate(global_step)
-                    except Exception as e:
-                        print(f"ERROR: {e}")
+                    if int(getattr(self.args, "run_validation", 0)):
+                        try:
+                            self.validate(global_step)
+                        except Exception as e:
+                            print(f"ERROR: {e}")
 
                         
                     

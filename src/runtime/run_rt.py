@@ -12,7 +12,7 @@ from librosa.filters import mel as librosa_mel_fn
 from speaker_verification.verification import init_model as init_sv_model
 import json
 
-CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team"
+CKPT_DIR = "/srv/scratch/speechdata/SAPC_Team/meanVC_checkpoint"
 
 
 def _amp_to_db(x, min_level_db):
@@ -86,7 +86,7 @@ class VCRunner():
     def __init__(self, target_path, steps=2):
         self.mutex = Lock()
         torch.set_num_threads(1)
-        self.sv_model = init_sv_model('wavlm_large', 'src/runtime/speaker_verification/ckpt/wavlm_large_finetune.pth')
+        self.sv_model = init_sv_model('wavlm_large', f"{CKPT_DIR}/wavlm_large_finetune.pth")
         self.sv_model.eval()
         
         
